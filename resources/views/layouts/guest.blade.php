@@ -16,7 +16,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans antialiased" style="margin-top: 65px">
+<body class="font-sans antialiased relative" style="margin-top: 65px">
     @include('layouts.partials.header')
     {{ $slot }}
     @include('layouts.partials.footer')

@@ -1,4 +1,4 @@
-<footer class="bg-green-700 text-white mt-6">
+<footer class="bg-green-700 text-white">
     <div class="max-w-5xl mx-auto py-12 px-5">
         <p class="text-white font-semibold">Follow Us</p>
         <div class="flex gap-3 mb-6">

@@ -1,6 +1,6 @@
 <x-guest-layout>
     <section class="max-w-5xl mx-auto pt-2 mb-6 px-5 relative text-center">
-        <img class="w-full mx-auto rounded-lg brightness-50" src="{{ asset('assets/images/slider.jpg') }}" alt="" />
+        <img class="w-full mx-auto rounded-lg brightness-50" src="{{ asset('assets/images/banner.png') }}" alt="" />
         <div class="flex flex-col items-center justify-center absolute inset-0 text-white ">
             <h1 class="text-2xl font-semibold">Your Personal Service Solution</h1>
             <p class="text-white">One-stop solution for your services. Order any service, anytime, anywhere.</p>
