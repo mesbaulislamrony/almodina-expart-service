@@ -17,7 +17,7 @@ class CheckoutController extends Controller
         $data['carts'] = Cart::where('email', auth()->user()->email)->get();
         $data['date'] = date('Y-m-d');
         $data['time'] = date('H:i');
-        return view('order.checkout', $data);
+        return view('checkout', $data);
     }
 
     public function store(Request $request)

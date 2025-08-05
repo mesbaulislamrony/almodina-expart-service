@@ -1,5 +1,6 @@
 <x-guest-layout>
-    <section class="max-w-screen-md mx-auto py-12 px-6">
+    <section class="max-w-sm mx-auto px-5 py-12">
+        <h1 class="text-2xl font-bold mb-3">Forgot your password</h1>
         <div class="mb-4 text-sm text-gray-600">
             {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
         </div>

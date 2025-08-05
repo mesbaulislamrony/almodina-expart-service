@@ -1,138 +1,244 @@
 <x-guest-layout>
-    <section class="max-w-5xl mx-auto py-12 relative text-center text-white">
-        <img class="w-full mx-auto rounded-lg brightness-50" src="https://almodina.com.bd/storage/app/public/banner/banners-1742051946.jpg" alt="" />
-        <div class="flex flex-col items-center justify-center absolute inset-0">
-            <h1 class="text-3xl font-semibold">Your Personal Service Solution</h1>
-            <p class="text-lg">One-stop solution for your services. Order any service, anytime, anywhere.</p>
+    <section class="max-w-5xl mx-auto pt-2 mb-6 px-5 relative text-center">
+        <img class="w-full mx-auto rounded-lg brightness-50" src="{{ asset('assets/images/slider.jpg') }}" alt="" />
+        <div class="flex flex-col items-center justify-center absolute inset-0 text-white ">
+            <h1 class="text-2xl font-semibold">Your Personal Service Solution</h1>
+            <p class="text-white">One-stop solution for your services. Order any service, anytime, anywhere.</p>
         </div>
-    </section>
-    @if($categories->count() > 0)
-    <section class="max-w-4xl mx-auto -mt-20">
-        <div class="grid grid-cols-6 gap-4">
-            @foreach($categories as $category)
-            <a href="{{ route('categories', $category->slug) }}" class="block shadow-md rounded-lg overflow-hidden relative transition transform duration-700 hover:shadow-xl">
-                <img class="w-full mx-auto" src="{{ $category->thumbnail }}" alt="" />
-                <div class="flex flex-col items-center px-3 py-3 text-center">
-                    <span class="line-clamp-2 text-sm">{{ $category->name }}</span>
-                </div>
-            </a>
-            @endforeach
+        @if($categories->count() > 0)
+        <div class="max-w-3xl mx-auto -mt-8">
+            <div class="grid grid-cols-6 gap-3">
+                @foreach($categories as $category)
+                <a href="{{ route('categories', $category->slug) }}" class="bg-white border border-neutral-100 transition transform duration-700 hover:shadow-xl rounded-xl overflow-hipen relative p-1">
+                    <img class="w-full mx-auto rounded-lg" src="{{ $category->thumbnail }}" alt="" />
+                    <div class="px-3 py-3 text-center">
+                        <span class="line-clamp-2 text-xs">{{ $category->name }}</span>
+                    </div>
+                </a>
+                @endforeach
+            </div>
         </div>
+        @endif
     </section>
-    @endif
     @if($services->count() > 0)
-    <section class="max-w-5xl mx-auto py-12">
-        <h1 class="text-xl">Trending Services</h1>
-        <p class="">Provide you with the fastest service in less time.</p>
-        <div class="grid grid-cols-4 gap-6 mt-6">
+    <section class="max-w-5xl mx-auto px-5 py-6">
+        <h1 class="text-lg font-semibold mb-3">Trending Services</h1>
+        <div class="grid grid-cols-4 gap-3">
             @foreach($services as $service)
-            <a href="{{ $service->url }}" class="border border-gray-100 transition transform duration-700 hover:shadow-xl rounded-lg overflow-hidden relative">
-                <img class="w-full mx-auto" src="{{ $service->thumbnail }}" alt="" />
+            <a href="{{ $service->url }}" class="bg-white border border-neutral-100 transition transform duration-700 hover:shadow-xl rounded-xl overflow-hipen relative p-1">
+                <img class="w-full mx-auto rounded-lg" src="{{ $service->thumbnail }}" alt="" />
                 <div class="px-3 py-3">
                     <p class="font-semibold text-gray-900 truncate">{{ $service->name }}</p>
                     <div class="flex justify-between gap-x-3">
-                        <p class="text-sm">Start From {{ $service->price }} Tk</p>
-                        <p class="text-sm text-gray-900 flex items-center">
-                            <i class="fa-solid fa-star text-xs text-yellow-400">&nbsp;</i>
+                        <p class="">Start From {{ $service->price }} Tk</p>
+                        <p class="text-gray-900 flex items-center">
+                            <i class="fa-solid fa-star text-yellow-400">&nbsp;</i>
                             <span>4.7</span>
                         </p>
                     </div>
                 </div>
-                <span class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 text-xs rounded">10% off Tk. 299</span>
+                <span class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 text-xs rounded-lg">10% off Tk. 299</span>
             </a>
             @endforeach
         </div>
     </section>
     @endif
-    <section class="max-w-5xl mx-auto py-12">
-        <img class="w-full rounded-lg mx-auto" src="{{ asset('assets/safety.png') }}" alt="" />
-        <div class="grid w-full grid-cols-12 items-start gap-x-6">
-            <div class="col-span-5">
-                <div class="ps-12 py-12">
-                    <h1 class="text-xl mb-6">We Care About The Quality And Safety...</h1>
-                    <p class="">We Belive that priority of caution is mandatory.</p>
-                </div>
-            </div>
-            <div class="col-span-7">
-                <span class="font-semibold text-white bg-red-500 px-4 py-3 rounded-full inline-block">Ensuring Mask</span>
-                <span>24/7 Support</span>
-                <span>Sanitizing Hands & Equipment</span>
-                <span>Safety Kit</span>
-            </div>
-        </div>
-    </section>
-    <section class="max-w-screen-xl mx-auto py-12 px-6">
-        <h1 class="text-xl">Our values drive us to the highest.</h1>
-        <p class="">We provide our services with a priority of quality. Which considers the clients happiness.</p>
-        <dl class="mt-6 grid grid-cols-4 gap-6">
-            <div class="flex flex-col-reverse gap-1">
-                <dt class="">Order Served</dt>
-                <dd class="text-xl font-semibold tracking-tight">2547+</dd>
-            </div>
-            <div class="flex flex-col-reverse gap-1">
-                <dt class="">Service Providers</dt>
-                <dd class="text-xl font-semibold tracking-tight">1532+</dd>
-            </div>
-            <div class="flex flex-col-reverse gap-1">
-                <dt class="">Clients Reviews</dt>
-                <dd class="text-xl font-semibold tracking-tight">4.9</dd>
-            </div>
-            <div class="flex flex-col-reverse gap-1">
-                <dt class="">Years of Experience</dt>
-                <dd class="text-xl font-semibold tracking-tight">10+</dd>
-            </div>
-        </dl>
-    </section>
-    <section class="max-w-screen-xl mx-auto py-12 px-6">
-        <div class="grid w-full grid-cols-12 items-start">
-            <img class="w-full rounded-lg mx-auto col-span-5" src="{{ asset('assets/safety.png') }}" alt="" />
-            <div class="col-span-7 ml-10">
-                <h1 class="text-xl">3 Easiest steps to get a service.</h1>
-                <p class="">Provide you with the fastest service in less time.</p>
-                <div class="space-y-2 mt-6">
-                    <div class="py-3">
-                        <h1 class="text-xl">Pick your wishes service</h1>
-                        <p class="">Select the service you wish to order from the website or app.</p>
-                    </div>
-                    <div class="py-3">
-                        <h1 class="text-xl">Pick your schedule</h1>
-                        <p class="">Choose a date and time that is convenient for the service provider and you.</p>
-                    </div>
-                    <div class="py-3">
-                        <h1 class="text-xl">Place your order</h1>
-                        <p class="">Place the order. We'll deliver the fastest service provider's schedule for you.</p>
+    @if($popular->count() > 0)
+    <section class="max-w-5xl mx-auto px-5 py-6">
+        <h1 class="text-lg font-semibold mb-3">Popular Services</h1>
+        <div class="grid grid-cols-4 gap-3">
+            @foreach($popular as $service)
+            <a href="{{ $service->url }}" class="bg-white border border-neutral-100 transition transform duration-700 hover:shadow-xl rounded-xl overflow-hipen relative p-1">
+                <img class="w-full mx-auto rounded-lg" src="{{ $service->thumbnail }}" alt="" />
+                <div class="px-3 py-3">
+                    <p class="font-semibold text-gray-900 truncate">{{ $service->name }}</p>
+                    <div class="flex justify-between gap-x-3">
+                        <p class="">Start From {{ $service->price }} Tk</p>
+                        <p class="text-gray-900 flex items-center">
+                            <i class="fa-solid fa-star text-yellow-400">&nbsp;</i>
+                            <span>4.7</span>
+                        </p>
                     </div>
                 </div>
+                <span class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 text-xs rounded-lg">10% off Tk. 299</span>
+            </a>
+            @endforeach
+        </div>
+    </section>
+    @endif
+    <section class="max-w-5xl mx-auto px-5 py-6">
+        <img class="h-72 rounded-lg -mb-52" src="{{ asset('assets/images/safety-first.png') }}" alt="" />
+    </section>
+    <section class="bg-green-700 pt-48 text-white">
+        <div class="max-w-5xl pt-6 pb-12 px-20 mx-auto relative">
+            <div class="grid grid-cols-2 gap-12">
+                <h1 class="text-2xl font-semibold mb-6">We care about the quality and safety...</h1>
+                <div class=""></div>
+            </div>
+            <div class="grid grid-cols-2 gap-12">
+                <div class="">
+                    <p class="text-white">We believe that priority of caution is mandatory. We provide our services with a priority of quality. Which considers the clients happiness.</p>
+                    <x-link-button href="" class="inline-flex mt-4 border border-white hover:bg-white hover:text-green-700">
+                        <span class="me-2">{{ __('More Details') }}</span><i class="fa-solid fa-arrow-up-right-from-square">&nbsp;</i>
+                    </x-link-button>
+                </div>
+                <div class="item-center">
+                    <ul class="flex flex-wrap gap-y-3 text-sm font-medium text-center text-gray-500">
+                        <li class="me-2">
+                            <div class="flex gap-2 items-center bg-white px-5 rounded-full h-10">
+                                <img class="h-5 inline-block" src="{{ asset('assets/images/masks.svg') }}"/>
+                                <span class="text-sm">Ensuring Mask</span>
+                            </div>
+                        </li>
+                        <li class="me-2">
+                            <div class="flex gap-2 items-center bg-white px-5 rounded-full h-10">
+                                <img class="h-5 inline-block" src="{{ asset('assets/images/support.svg') }}"/>
+                                <span class="text-sm">24/7 Support</span>
+                            </div>
+                        </li>
+                        <li class="me-2">
+                            <div class="flex gap-2 items-center bg-white px-5 rounded-full h-10">
+                                <img class="h-5 inline-block" src="{{ asset('assets/images/sanitizing.svg') }}"/>
+                                <span class="text-sm">Sanitizing Hands & Equipment</span>
+                            </div>
+                        </li>
+                        <li class="me-2">
+                            <div class="flex gap-2 items-center bg-white px-5 rounded-full h-10">
+                                <img class="h-5 inline-block" src="{{ asset('assets/images/safety.svg') }}"/>
+                                <span class="text-sm">Safety Kit</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </section>
-    <section class="max-w-screen-xl mx-auto py-12 px-6">
-        <h1 class="text-xl">Our clients trust and love us</h1>
-        <p class="">We are truly gratful for their love.</p>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-            <div class="">
-                <h3 class="font-medium">Emma Stone</h3>
-                <div class="flex text-yellow-400">★★★★★</div>
-                <p class="">Lorem ipsum dolor sit amet, Non ratione qua qui sapiente dolor ea facilis molestias laborem esse vel</p>
-            </div>
-            <div class="">
-                <h3 class="font-medium">Emma Stone</h3>
-                <div class="flex text-yellow-400">★★★★★</div>
-                <p class="">Lorem ipsum dolor sit amet, Non ratione qua qui sapiente dolor ea facilis molestias laborem esse vel</p>
-            </div>
-            <div class="">
-                <h3 class="font-medium">Emma Stone</h3>
-                <div class="flex text-yellow-400">★★★★★</div>
-                <p class="">Lorem ipsum dolor sit amet, Non ratione qua qui sapiente dolor ea facilis molestias laborem esse vel</p>
+    <section class="max-w-5xl mx-auto px-5 py-12">
+        <div class="grid grid-cols-2">
+            <dl class="mt-6 grid grid-cols-2 gap-6 text-center">
+                <div class="flex flex-col-reverse gap-1">
+                    <p class="">Order Served</p>
+                    <p class="text-2xl font-bold text-green-700">2547+</p>
+                </div>
+                <div class="flex flex-col-reverse gap-1">
+                    <p class="">Service Providers</p>
+                    <p class="text-2xl font-bold text-green-700">1532+</p>
+                </div>
+                <div class="flex flex-col-reverse gap-1">
+                    <p class="">Clients Reviews</p>
+                    <p class="text-2xl font-bold text-green-700">4.9</p>
+                </div>
+                <div class="flex flex-col-reverse gap-1">
+                    <p class="">Years of Experience</p>
+                    <p class="text-2xl font-bold text-green-700">10+</p>
+                </div>
+            </dl>
+            <div class="ps-12">
+                <h1 class="text-2xl font-bold mb-6">Our values drive us to the highest</h1>
+                <h2 class="font-semibold mb-6">We provide our services with a priority of quality. which considers the client's happiness.</h2>
+                <p class="">Ah, got it! You're looking for group button titles for a user profile section — something like tabs or categories that organize different parts of a user's profile.</p>
+                <x-link-button href="" class="inline-flex mt-4 border border-green-700 text-green-700 hover:bg-green-700 hover:text-white">
+                    <span class="me-2">{{ __('More Details') }}</span><i class="fa-solid fa-arrow-up-right-from-square">&nbsp;</i>
+                </x-link-button>
             </div>
         </div>
     </section>
-    <section class="max-w-screen-xl mx-auto py-12 px-6 relative">
-        <div class="max-w-xl pb-32">
-            <h2 class="text-xl font-semibold tracking-tight mb-10">Download Our App</h2>
-            <p class="">Enjoy our smart solutions to make your life easier. Download our latest app from the Play Store. Confirm your location and place an order by selecting services We are always conscious of delivering fast and quality service to you. We are always conscious of delivering fast and quality service to you.</p>
-            <a href="#" class="rounded-md px-3.5 py-2.5 mt-6 inline-block bg-gray-900 text-white">Download</a>
+    <section class="max-w-5xl mx-auto px-5 py-12">
+        <div class="grid grid-cols-2 gap-6">
+            <img class="w-full" src="{{ asset('assets/images/easiest-steps.png') }}" alt="App screenshot">
+            <div class="">
+                <h1 class="text-2xl font-bold">3 easiest steps to get a service</h1>
+                <p class="mb-3">Provide you with the fastest service in less time.</p>
+                <div class="bg-white px-3 py-3 rounded-xl mb-3">
+                    <div class="flex items-center">
+                        <div class="flex shrink-0 items-center justify-center rounded-full bg-green-700 text-white mx-0 size-10">
+                            <span class="text-lg font-bold">1</span>
+                        </div>
+                        <div class="ml-6 text-left">
+                            <h3 class="text-sm font-semibold">Select a service</h3>
+                            <p class="">Select the service you wish to order from the website or app. from the website or app.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white px-3 py-3 rounded-xl mb-3">
+                    <div class="flex items-center">
+                        <div class="flex shrink-0 items-center justify-center rounded-full bg-green-700 text-white mx-0 size-10">
+                            <span class="text-lg font-bold">2</span>
+                        </div>
+                        <div class="ml-6 text-left">
+                            <h3 class="text-sm font-semibold">Pick your schedule</h3>
+                            <p class="">Choose a date and time that is convenient for the service provider and you.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white px-3 py-3 rounded-xl mb-3">
+                    <div class="flex items-center">
+                        <div class="flex shrink-0 items-center justify-center rounded-full bg-green-700 text-white mx-0 size-10">
+                            <span class="text-lg font-bold">3</span>
+                        </div>
+                        <div class="ml-6 text-left">
+                            <h3 class="text-sm font-semibold">Place your order</h3>
+                            <p class="">Place the order. We’ll deliver the fastest service provider’s schedule for you.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <img class="absolute top-0 right-0 w-auto" src="{{ asset('assets/app.png') }}" alt="App screenshot" width="1824" height="1080">
+    </section>
+    <section class="bg-white py-12">
+        <div class="max-w-5xl mx-auto px-5 text-center">
+            <h1 class="text-2xl font-bold">Our clients trust and love us</h1>
+            <p class="">We are truly gratful for their love.</p>
+            <div class="grid grid-cols-3 gap-6 mt-12">
+                <div class="bg-gray-100 px-6 py-6 rounded-lg">
+                    <img class="w-12 h-12 rounded-full mx-auto -mt-12 bg-gray-100 border" src="{{ asset('assets/thumbnail.png') }}" alt="User Image" />
+                    <p class="my-4">Lorem ipsum dolor sit amet, Non ratione qua qui sapiente dolor ea facilis molestias laborem esse vel</p>
+                    <h3 class="font-semibold">Emma Stone</h3>
+                    <p class="">AVP Finance Triangle East</p>
+                </div>
+                <div class="bg-gray-100 px-6 py-6 rounded-lg">
+                    <img class="w-12 h-12 rounded-full mx-auto -mt-12 bg-gray-100 border" src="{{ asset('assets/thumbnail.png') }}" alt="User Image" />
+                    <p class="my-4">Lorem ipsum dolor sit amet, Non ratione qua qui sapiente dolor ea facilis molestias laborem esse vel</p>
+                    <h3 class="font-semibold">Emma Stone</h3>
+                    <p class="">AVP Finance Triangle East</p>
+                </div>
+                <div class="bg-gray-100 px-6 py-6 rounded-lg">
+                    <img class="w-12 h-12 rounded-full mx-auto -mt-12 bg-gray-100 border" src="{{ asset('assets/thumbnail.png') }}" alt="User Image" />
+                    <p class="my-4">Lorem ipsum dolor sit amet, Non ratione qua qui sapiente dolor ea facilis molestias laborem esse vel</p>
+                    <h3 class="font-semibold">Emma Stone</h3>
+                    <p class="">AVP Finance Triangle East</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="max-w-3xl mx-auto px-5 py-12 text-center">
+        <h1 class="text-2xl font-bold">Our Key Clients</h1>
+        <p class="">We have provided quality services to 1,700+ clients.</p>
+        <div class="flex flex-wrap justify-center gap-3 mt-6">
+            <img class="h-6 inline-block" src="{{ asset('assets/images/gonsin.png') }}" alt="Client Logo">
+            <img class="h-6 inline-block" src="{{ asset('assets/images/i2s.png') }}" alt="Client Logo">
+            <img class="h-6 inline-block" src="{{ asset('assets/images/kodak-alaris.png') }}" alt="Client Logo">
+            <img class="h-6 inline-block" src="{{ asset('assets/images/piql.png') }}" alt="Client Logo">
+            <img class="h-6 inline-block" src="{{ asset('assets/images/kodak-alaris.png') }}" alt="Client Logo">
+            <img class="h-6 inline-block" src="{{ asset('assets/images/i2s.png') }}" alt="Client Logo">
+            <img class="h-6 inline-block" src="{{ asset('assets/images/gonsin.png') }}" alt="Client Logo">
+            <img class="h-6 inline-block" src="{{ asset('assets/images/kodak-alaris.png') }}" alt="Client Logo">
+            <img class="h-6 inline-block" src="{{ asset('assets/images/piql.png') }}" alt="Client Logo">
+            <img class="h-6 inline-block" src="{{ asset('assets/images/kodak-alaris.png') }}" alt="Client Logo">
+            <img class="h-6 inline-block" src="{{ asset('assets/images/i2s.png') }}" alt="Client Logo">
+        </div>
+    </section>
+    <section class="max-w-4xl mx-auto pt-12">
+        <div class="grid grid-cols-3 gap-6">
+            <img class="w-80" src="{{ asset('assets/images/app.png') }}" alt="App screenshot">
+            <div class="col-span-2 py-12 px-6">
+                <h2 class="text-2xl font-semibold mb-3">Download Our App</h2>
+                <p class="font-semibold mb-3">Enjoy our smart solutions to make your life easier.</p>
+                <p class="">Download our latest app from the Play Store. Confirm your location and place an order by selecting services We are always conscious of delivering fast and quality service to you.</p>
+                <a href="#" class="mt-6 inline-block">
+                    <img class="inline-block w-32 me-2" src="{{ asset('assets/images/google-play-store.png') }}" alt="Google Play Store">
+                </a>
+            </div>
+        </div>
     </section>
 </x-guest-layout>

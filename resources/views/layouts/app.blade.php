@@ -18,10 +18,10 @@
 
 <body class="font-sans antialiased" style="margin-top: 72px">
     @include('layouts.partials.header')
-    <section class="max-w-screen-xl mx-auto py-12 px-6">
-        <div class="grid w-full grid-cols-12 items-start">
+    <section class="max-w-5xl mx-auto px-5 py-12">
+        <div class="grid w-full grid-cols-5 items-start">
             @include('layouts.navigation')
-            <div class="col-span-7">
+            <div class="col-span-3">
                 {{ $slot }}
             </div>
         </div>

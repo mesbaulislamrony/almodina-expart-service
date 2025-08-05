@@ -17,12 +17,14 @@ class WelcomeController extends Controller
     public function home()
     {
         $data['categories'] = Category::query()->get();
-        $data['services'] = Service::query()->get();
+        $data['services'] = Service::take(4)->get();
+        $data['popular'] = Service::take(8)->get();
         return view('welcome', $data);
     }
 
     public function categories($slug)
     {
+        $data['categories'] = Category::query()->get();
         $data['category'] = Category::where('slug', $slug)->first();
         $data['services'] = Service::whereHas('category', function ($query) use ($slug) {
             return $query->where('slug', $slug);
@@ -39,7 +41,7 @@ class WelcomeController extends Controller
                 });
             });
         }, 'variants', 'reviews'])->where('slug', $slug)->first();
-        return view('product', $data);
+        return view('services', $data);
     }
 
     public function setCurrentLocation(Request $request)
