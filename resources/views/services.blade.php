@@ -56,7 +56,7 @@
                 <ul class="flex flex-wraptext-center mt-6">
                     @foreach($service->variants as $variant)
                     <li class="me-2">
-                        <a href="{{ route('services', $service->slug) }}?tab={{ $variant->slug }}" class="rounded-full px-3.5 py-2 font-semibold inline-block border border-green-700 text-green-700" aria-current="page">{{ $variant->name }}</a>
+                        <a href="{{ route('services', $service->slug) }}?tab={{ $variant->slug }}" class="rounded-full px-3.5 py-2 font-semibold inline-block border border-green-700 text-green-700 {{ ($variant->slug == $tab) ? 'bg-green-700 text-white' : '' }}" aria-current="page">{{ $variant->name }}</a>
                     </li>
                     @endforeach
                 </ul>
@@ -64,38 +64,7 @@
                 <div class="mt-6">
                     @if($service->products->count() > 0)
                     @foreach($service->products as $product)
-                    <form class="py-2 px-2 bg-white rounded-lg mb-2" action="{{ route('cart.store', $product->id) }}" method="POST">
-                        <div class="grid grid-cols-6 gap-3" x-data="{ price: {{ $product->price }}, qty: 0 }">
-                            <div class="overflow-hidden col-span-3 flex items-center">
-                                <div class="flex flex-col">
-                                    <h5 class="font-semibold truncate">{{ $product->name }}</h5>
-                                    <p class="text-xs">{{ $product->price }} Tk {{ $service->unit->name }}</p>
-                                </div>
-                            </div>
-                            <div class="overflow-hidden col-span-2 flex items-center justify-end">
-                                <div class="flex flex-row justify-between items-center border border-neutral-300 rounded-full">
-                                    <button type="button" class="size-8 cursor-pointer px-1" @click="qty = Math.max(0, qty - 1)">
-                                        <svg class="stroke-gray-900 transition-all duration-500 group-hover:stroke-black" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
-                                            <path d="M16.5 11H5.5" stroke="" stroke-width="1.6" stroke-linecap="round" />
-                                            <path d="M16.5 11H5.5" stroke="" stroke-opacity="0.2" stroke-width="1.6" stroke-linecap="round" />
-                                            <path d="M16.5 11H5.5" stroke="" stroke-opacity="0.2" stroke-width="1.6" stroke-linecap="round" />
-                                        </svg>
-                                    </button>
-                                    <input type="text" class="p-0 outline-none w-12 text-center border-none bg-transparent" placeholder="1" name="qty" value="0" x-model="qty" />
-                                    <button type="button" class="size-8 cursor-pointer px-1" @click="qty++">
-                                        <svg class="stroke-gray-900 transition-all duration-500 group-hover:stroke-black" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
-                                            <path d="M11 5.5V16.5M16.5 11H5.5" stroke="" stroke-width="1.6" stroke-linecap="round" />
-                                            <path d="M11 5.5V16.5M16.5 11H5.5" stroke="" stroke-opacity="0.2" stroke-width="1.6" stroke-linecap="round" />
-                                            <path d="M11 5.5V16.5M16.5 11H5.5" stroke="" stroke-opacity="0.2" stroke-width="1.6" stroke-linecap="round" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="overflow-hidden col-span-1 flex items-center justify-end">
-                                <span class="select-none" x-text="(price * qty).toFixed(2) + ' Tk'"></span>
-                            </div>
-                        </div>
-                    </form>
+                    <livewire:order.add-to-cart-livewire :product="$product" :key="$product->id" />
                     @endforeach
                     @endif
                 </div>
@@ -120,65 +89,7 @@
                 </article>
             </div>
             <div class="col-span-2">
-                <div class="w-full px-3 py-3 bg-white border border-neutral-300 rounded-lg -mt-12">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-lg font-semibold">Your Carts</h3>
-                        <p>You have {{ 1 }} items</p>
-                    </div>
-                    <ul role="list" class="divide-y divide-neutral-100">
-                        <li class="py-3">
-                            <div class="flex items-center gap-3">
-                                <div class="flex-1 min-w-0">
-                                    <p class="font-semibold text-neutral-700 truncate">Washing Machine Tune-Up & Maintenance</p>
-                                    <p class="truncate">Top Load (Silver) x 1 item</p>
-                                </div>
-                                <div class="text-base font-semibold">685 Tk</div>
-                                <a href="" class="flex shrink-0 items-center justify-center rounded-full size-4">
-                                    <i class="fa-solid fa-circle-xmark"></i>
-                                </a>
-                            </div>
-                        </li>
-                        <li class="py-3">
-                            <div class="flex items-center gap-3">
-                                <div class="flex-1 min-w-0">
-                                    <p class="font-semibold text-neutral-700 truncate">Cooling Coil Deep Cleaning</p>
-                                    <p class="truncate">Residential (Standard) x 1 item</p>
-                                </div>
-                                <div class="text-base font-semibold">196 Tk</div>
-                                <a href="" class="flex shrink-0 items-center justify-center rounded-full size-4">
-                                    <i class="fa-solid fa-circle-xmark"></i>
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
-                    <ul role="list" class="divide-y divide-neutral-100">
-                        <li class="py-3">
-                            <div class="flex items-center gap-3">
-                                <div class="flex-1 min-w-0">
-                                    <p class="font-semibold text-neutral-700 truncate">Subtotal</p>
-                                </div>
-                                <div class="text-base font-semibold">685 Tk</div>
-                            </div>
-                        </li>
-                        <li class="py-3">
-                            <div class="flex items-center gap-3">
-                                <div class="flex-1 min-w-0">
-                                    <p class="font-semibold text-neutral-700 truncate">Discount</p>
-                                </div>
-                                <div class="text-base font-semibold">0 Tk</div>
-                            </div>
-                        </li>
-                        <li class="py-3">
-                            <div class="flex items-center gap-3">
-                                <div class="flex-1 min-w-0">
-                                    <p class="font-semibold text-neutral-700 truncate">Payable</p>
-                                </div>
-                                <div class="text-base font-semibold">685 Tk</div>
-                            </div>
-                        </li>
-                    </ul>
-                    <a href="{{ route('checkout.create') }}" class="bg-green-700 text-center text-white uppercase block px-3 py-3 mt-4 focus:outline-none rounded-full cursor-pointer w-full">{{ __('Place Order') }}</a>
-                </div>
+                <livewire:order.cart-bag-livewire />
             </div>
         </div>
     </section>

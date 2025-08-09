@@ -16,6 +16,20 @@ class Cart extends Model
         'total',
     ];
 
+    public $casts = [
+        'subtotal' => 'integer',
+        'discount' => 'integer',
+        'total' => 'integer',
+    ];
+
+    public function getUrlAttribute()
+    {
+        if($this->product->variant) {
+            return route('services', $this->product->service->slug) . '?tab=' . $this->product->variant->slug;
+        }
+        return route('services', $this->product->service->slug);
+    }
+
     public function product()
     {
         return $this->belongsTo(Product::class);

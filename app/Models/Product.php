@@ -10,4 +10,14 @@ class Product extends Model
     {
         return $this->belongsTo(Variant::class);
     }
+
+    public function service()
+    {
+        return $this->belongsTo(Service::class);
+    }
+
+    public function cart()
+    {
+        return $this->hasOne(Cart::class)->where('email', auth()->user()->email);
+    }
 }

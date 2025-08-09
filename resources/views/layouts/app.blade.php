@@ -21,7 +21,7 @@
     <section class="max-w-5xl mx-auto px-5 py-12">
         <div class="grid w-full grid-cols-5 items-start">
             @include('layouts.navigation')
-            <div class="col-span-3">
+            <div class="col-span-3 px-4">
                 {{ $slot }}
             </div>
         </div>

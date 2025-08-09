@@ -38,9 +38,10 @@ class WelcomeController extends Controller
             return $query->when($request->tab, function ($query) use ($request) {
                 return $query->whereHas('variant', function ($query) use ($request) {
                     return $query->where('slug', $request->tab);
-                });
+                })->with('service', 'cart');
             });
         }, 'variants', 'reviews'])->where('slug', $slug)->first();
+        $data['tab'] = $request->tab;
         return view('services', $data);
     }
 
