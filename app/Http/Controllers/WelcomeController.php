@@ -35,7 +35,7 @@ class WelcomeController extends Controller
                 return $query->whereHas('variant', function ($query) use ($request) {
                     return $query->where('slug', $request->tab);
                 })->with('service')->when(auth()->check(), function ($query) {
-                    return $query->whereHas('cart', function ($query) {
+                    return $query->with('cart', function ($query) {
                         return $query->where('email', auth()->user()->email);
                     });
                 });

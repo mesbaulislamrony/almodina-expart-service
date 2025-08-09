@@ -81,15 +81,11 @@
                     <h1 class="text-lg font-semibold">Review of {{ $service->name }}</h1>
                     @if($service->reviews->count() > 0)
                     @foreach($service->reviews as $review)
+                    <p>{{ $review->content }}</p>
                     @endforeach
+                    @else
+                    <h1 class="text-lg font-semibold">No review found</h1>
                     @endif
-                </article>
-                <article class="my-6">
-                    <h1 class="text-lg font-semibold">Share your thoughts</h1>
-                    <p>If you’ve used this product, share your thoughts with other customers</p>
-                    <x-primary-button-link href="" class="mt-4">
-                        <span class="me-2">{{ __('Write an Review') }}</span><i class="fa-solid fa-arrow-up-right-from-square">&nbsp;</i>
-                    </x-primary-button-link>
                 </article>
             </div>
             <div class="col-span-2">

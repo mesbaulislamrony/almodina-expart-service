@@ -9,9 +9,10 @@
         @if($discount == 0)
         <div class="py-3">
             <div class="relative">
-                <input type="text" id="code" name="code" class="mt-1 block w-full border-neutral-300 focus:border-neutral-300 focus:ring-neutral-200 rounded-lg text-sm" placeholder="Have you any promo code?" />
+                <input wire:model="code" type="text" id="code" name="code" class="mt-1 block w-full border-neutral-300 focus:border-neutral-300 focus:ring-neutral-200 rounded-lg text-sm" placeholder="Have you any promo code?" />
                 <button type="button" class="text-white absolute right-0 inset-y-0 bg-green-700 hover:bg-green-800 font-medium rounded-lg px-4" wire:click="apply">Apply</button>
             </div>
+            <x-input-error :messages="$errors->get('code')" class="mt-2" />
         </div>
         @endif
         @if($discount > 0)

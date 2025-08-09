@@ -42,7 +42,8 @@ Route::middleware('auth')->group(function () {
         });
         Route::prefix('review')->name('review.')->group(function () {
             Route::get('/', [ReviewControlelr::class, 'index'])->name('index');
-            Route::post('/{id}', [ReviewControlelr::class, 'store'])->name('store');
+            Route::get('/{slug}/create', [ReviewControlelr::class, 'create'])->name('create');
+            Route::post('/{slug}/store', [ReviewControlelr::class, 'store'])->name('store');
             Route::delete('/{id}', [ReviewControlelr::class, 'destroy'])->name('destroy');
         });
         Route::get('/notification', NotificationControlelr::class)->name('notification.index');

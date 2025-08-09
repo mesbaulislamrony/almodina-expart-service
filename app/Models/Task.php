@@ -15,4 +15,9 @@ class Task extends Model
         'discount',
         'total',
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

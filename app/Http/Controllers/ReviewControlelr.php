@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Review;
+use App\Models\Service;
 use Illuminate\Http\Request;
 
 class ReviewControlelr extends Controller
@@ -11,7 +13,7 @@ class ReviewControlelr extends Controller
      */
     public function index()
     {
-        $data['reviews'] = auth()->user()->reviews()->get();
+        $data['reviews'] = Review::with('service')->where('customer_id', auth()->user()->id)->get();
 
         return view('review.index', $data);
     }
@@ -19,9 +21,11 @@ class ReviewControlelr extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($slug)
     {
-        //
+        $data['service'] = Service::where('slug', $slug)->first();
+
+        return view('review.create', $data);
     }
 
     /**
@@ -29,7 +33,14 @@ class ReviewControlelr extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = $request->validate([
+            'content' => 'required',
+        ]);
+        $service = Service::where('slug', $request->slug)->first();
+        $validate['service_id'] = $service->id;
+        auth()->user()->reviews()->create($validate);
+
+        return redirect()->route('review.index')->with('success', __('Review created successfully.'));
     }
 
     /**

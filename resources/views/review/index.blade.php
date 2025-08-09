@@ -7,24 +7,24 @@
 
     @if($reviews->count() > 0)
     <ul role="list" class="divide-y divide-gray-100">
-        @foreach($reviews as $service)
+        @foreach($reviews as $review)
         <li class="flex justify-between gap-x-6 py-5">
-            <a href="{{ $service->url }}" class="flex min-w-0 gap-x-4">
-                <img class="size-12 flex-none rounded-full bg-gray-50" src="{{ $service->thumbnail }}" alt="">
+            <a href="{{ $review->service->url }}" class="flex min-w-0 gap-x-4">
+                <img class="size-12 flex-none rounded-full bg-gray-50" src="{{ $review->service->thumbnail }}" alt="">
                 <div class="min-w-0 flex-auto">
-                    <p class="text-sm/6 font-semibold text-gray-900">{{ $service->name }}</p>
-                    <p class="mt-1 truncate text-xs/5 text-gray-500">{{ $service->category->name }}</p>
+                    <p class="text-sm/6 font-semibold text-gray-900">{{ $review->service->name }}</p>
+                    <p class="mt-1 truncate text-xs/5 text-gray-500">{{ $review->content }}</p>
                 </div>
             </a>
             <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-                <x-danger-button x-data="" x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion-{{$service->id}}')">
+                <x-danger-button x-data="" x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion-{{$review->id}}')">
                     <i class="fa-solid fa-xmark"></i>
                 </x-danger-button>
             </div>
         </li>
 
-        <x-modal name="confirm-user-deletion-{{$service->id}}" :show="$errors->userDeletion->isNotEmpty()" focusable>
-            <form method="post" action="{{ route('wishlist.destroy', $service->id) }}" class="p-6">
+        <x-modal name="confirm-user-deletion-{{$review->id}}" :show="$errors->userDeletion->isNotEmpty()" focusable>
+            <form method="post" action="{{ route('wishlist.destroy', $review->id) }}" class="p-6">
                 @csrf
                 @method('delete')
                 <h2 class="text-lg font-medium text-gray-900">

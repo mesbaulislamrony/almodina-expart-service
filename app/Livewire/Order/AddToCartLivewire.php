@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Order;
 
-use App\Repository\Order\AddToCartRepository;
+use App\Actions\AddToCartAction;
 use Livewire\Component;
 
 class AddToCartLivewire extends Component
@@ -14,30 +14,33 @@ class AddToCartLivewire extends Component
     public function mount($product)
     {
         $this->product = $product;
-        $this->product->subtotal = 0;
+        $this->product->total = 0;
         if ($product->cart) {
             $this->qty = $product->cart->qty;
-            $this->product->subtotal = $product->cart->subtotal;
+            $this->product->total = $product->cart->total;
         }
     }
 
-    public function increment(AddToCartRepository $repository)
+    public function increment(AddToCartAction $action)
     {
+        if (! auth()->check()) {
+            return redirect()->route('login');
+        }
         $this->qty++;
         $this->product->qty = $this->qty;
-        $this->product->subtotal = $this->product->price * $this->qty;
-        $repository->store($this->product);
+        $this->product->total = $this->product->price * $this->qty;
+        $action($this->product);
         $this->dispatch('update-cart-bag');
     }
 
-    public function decrement(AddToCartRepository $repository)
+    public function decrement(AddToCartAction $action)
     {
         if ($this->qty > 0) {
             $this->qty--;
         }
         $this->product->qty = $this->qty;
-        $this->product->subtotal = $this->product->price * $this->qty;
-        $repository->store($this->product);
+        $this->product->total = $this->product->price * $this->qty;
+        $action($this->product);
         $this->dispatch('update-cart-bag');
     }
 

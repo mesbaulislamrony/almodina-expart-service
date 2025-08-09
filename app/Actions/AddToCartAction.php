@@ -1,20 +1,18 @@
 <?php
 
-namespace App\Repository\Order;
+namespace App\Actions;
 
 use App\Models\Cart;
 
-class AddToCartRepository
+class AddToCartAction
 {
-    public function store($product)
+    public function __invoke($product): void
     {
         Cart::where(['email' => auth()->user()->email, 'product_id' => $product->id])->delete();
         if ($product->qty >= 1) {
-            $array = $product->only('qty', 'price', 'subtotal');
+            $array = $product->only('qty', 'price', 'total');
             $array['email'] = auth()->user()->email;
             $array['product_id'] = $product->id;
-            $array['discount'] = 0;
-            $array['total'] = ($array['subtotal'] - $array['discount']);
             Cart::create($array);
         }
     }

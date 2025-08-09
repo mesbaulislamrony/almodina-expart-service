@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Order;
 
+use App\Models\Cart;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -9,7 +10,7 @@ class CartBagLivewire extends Component
 {
     public $items;
 
-    public $subtotal = 0;
+    public $total = 0;
 
     public function mount()
     {
@@ -19,11 +20,10 @@ class CartBagLivewire extends Component
     #[On('update-cart-bag')]
     public function updateCartBag()
     {
-        if (! auth()->check()) {
-            return false;
+        if (auth()->check()) {
+            $this->items = Cart::where('email', auth()->user()->email)->get();
+            $this->total = $this->items->sum('total');
         }
-        $this->items = auth()->user()->carts()->with('product')->get();
-        $this->subtotal = $this->items->sum('subtotal');
     }
 
     public function render()
