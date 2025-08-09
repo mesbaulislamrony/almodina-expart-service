@@ -2,15 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sku;
-use App\Models\City;
-use App\Models\Package;
-use App\Models\Service;
 use App\Models\Category;
-use App\Models\Location;
-use App\Models\Review;
+use App\Models\Service;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cookie;
 
 class WelcomeController extends Controller
 {
@@ -19,6 +13,7 @@ class WelcomeController extends Controller
         $data['categories'] = Category::query()->get();
         $data['services'] = Service::take(4)->get();
         $data['popular'] = Service::take(8)->get();
+
         return view('welcome', $data);
     }
 
@@ -29,6 +24,7 @@ class WelcomeController extends Controller
         $data['services'] = Service::whereHas('category', function ($query) use ($slug) {
             return $query->where('slug', $slug);
         })->get();
+
         return view('categories', $data);
     }
 
@@ -38,17 +34,15 @@ class WelcomeController extends Controller
             return $query->when($request->tab, function ($query) use ($request) {
                 return $query->whereHas('variant', function ($query) use ($request) {
                     return $query->where('slug', $request->tab);
-                })->with('service', 'cart');
+                })->with('service')->when(auth()->check(), function ($query) {
+                    return $query->whereHas('cart', function ($query) {
+                        return $query->where('email', auth()->user()->email);
+                    });
+                });
             });
         }, 'variants', 'reviews'])->where('slug', $slug)->first();
         $data['tab'] = $request->tab;
-        return view('services', $data);
-    }
 
-    public function setCurrentLocation(Request $request)
-    {
-        $location = Location::find($request->location);
-        Cookie::queue('location', $location->slug, 60);
-        return redirect()->route('welcome');
+        return view('services', $data);
     }
 }

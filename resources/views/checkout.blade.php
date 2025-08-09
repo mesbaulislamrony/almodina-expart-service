@@ -46,9 +46,10 @@
                         @endif
                     </ul>
                     <livewire:order.apply-coupon-livewire />
-                    <div class="flex items-center my-4">
-                        <input id="link-checkbox" type="checkbox" value="" class="w-4 h-4 outline-none ring-0 focus:outline-none focus:ring-0">
-                        <label for="link-checkbox" class="ms-2 text-sm ">I agree with the <a href="#" class="text-blue-600 hover:underline">terms and conditions</a>.</label>
+                    <div class="my-4">
+                        <input id="agreement" name="agreement" type="checkbox" value="agree" class="w-4 h-4 outline-none ring-0 focus:outline-none focus:ring-0">
+                        <label for="agreement" class="ms-2 text-sm ">I agree with the <a href="#" class="text-blue-600 hover:underline">terms and conditions</a>.</label>
+                        <x-input-error :messages="$errors->get('agreement')" class="mt-2" />
                     </div>
                     <x-primary-button class="w-full">
                         {{ __('Place Order') }}

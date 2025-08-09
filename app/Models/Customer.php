@@ -3,12 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Customer extends Authenticatable
 {
-    use \Illuminate\Notifications\Notifiable;
     use \App\Traits\ThumbnailAttributeTrait;
+    use \Illuminate\Notifications\Notifiable;
 
     public $fillable = [
         'name',
@@ -34,5 +33,15 @@ class Customer extends Authenticatable
     public function carts()
     {
         return $this->hasMany(Cart::class, 'email', 'email');
+    }
+
+    public function services()
+    {
+        return $this->belongsToMany(Service::class);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
     }
 }

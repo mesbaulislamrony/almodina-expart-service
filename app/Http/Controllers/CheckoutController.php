@@ -2,23 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Checkout\StoreRequest;
 use App\Models\Cart;
 use App\Models\Project;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Models\Location;
-use Illuminate\Support\Facades\Cookie;
 
 class CheckoutController extends Controller
 {
     public function create()
     {
         $data['items'] = Cart::where('email', auth()->user()->email)->get();
+
         return view('checkout', $data);
     }
 
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         $carts = Cart::where('email', auth()->user()->email)->get();
         $array['customer_id'] = auth()->user()->id;
@@ -31,10 +29,12 @@ class CheckoutController extends Controller
             $cart->project_id = $project->id;
             $cart->created_at = now();
             $cart->updated_at = now();
+
             return $cart->except('id', 'email');
         })->toArray();
         $project->tasks()->insert($tasks);
         Cart::where(['email' => auth()->user()->email])->delete();
+
         return redirect()->route('booking.index')->with('success', __('Project created successfully.'));
     }
 }

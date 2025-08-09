@@ -2,11 +2,11 @@
 
 namespace App\View\Components;
 
-use Closure;
 use App\Models\Location;
-use Illuminate\View\Component;
+use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\View\Component;
 
 class CurrentLocationPopup extends Component
 {
@@ -27,6 +27,7 @@ class CurrentLocationPopup extends Component
         $location = Cookie::get('location');
         $data['locations'] = Location::query()->get();
         $data['location'] = Location::where('slug', $location)->first();
+
         return view('components.current-location-popup', $data);
     }
 }

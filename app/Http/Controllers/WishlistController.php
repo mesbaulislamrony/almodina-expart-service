@@ -8,7 +8,8 @@ class WishlistController extends Controller
 {
     public function index()
     {
-        $data['wishlists'] = auth()->user()->services()->get();
+        $data['services'] = auth()->user()->services()->get();
+
         return view('wishlist.index', $data);
     }
 
@@ -17,13 +18,15 @@ class WishlistController extends Controller
         $service = \App\Models\Service::where('slug', $slug)->first();
         auth()->user()->services()->detach($service);
         auth()->user()->services()->attach($service);
-        return back();
+
+        return redirect()->back();
     }
 
     public function destroy(Request $request, $id)
     {
         $service = \App\Models\Service::where('id', $id)->first();
         auth()->user()->services()->detach($service);
+
         return back();
     }
 }

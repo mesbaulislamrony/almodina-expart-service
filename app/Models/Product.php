@@ -18,6 +18,6 @@ class Product extends Model
 
     public function cart()
     {
-        return $this->hasOne(Cart::class)->where('email', auth()->user()->email);
+        return $this->hasOne(Cart::class);
     }
 }

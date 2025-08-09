@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use Carbon\Carbon;
-use Carbon\CarbonPeriod;
 
 class ScheduleService
 {
@@ -21,12 +20,13 @@ class ScheduleService
         $datesArray = [];
         $period = \Carbon\CarbonPeriod::create(\Carbon\Carbon::today(), '1 day', \Carbon\Carbon::today()->addDays($count - 1));
         foreach ($period as $date) {
-            $datesArray[] = (object)[
+            $datesArray[] = (object) [
                 'day' => $date->format('d'),
                 'name' => $date->isToday() ? 'Today' : $date->format('D'),
                 'date' => $date->format('l M Y'),
             ];
         }
+
         return $datesArray;
     }
 
@@ -37,12 +37,13 @@ class ScheduleService
         $period = \Carbon\CarbonPeriod::create($startPeriod, '1 hour', $endPeriod);
         $hours = [];
         foreach ($period as $time) {
-            $hours[] = (object)[
+            $hours[] = (object) [
                 'time' => $time->format('h:i A'),
                 'disabled' => $time->lte(Carbon::now()),
                 'default' => $time->gte(Carbon::now()) && $time->lt(Carbon::now()->addHour(1)),
             ];
         }
+
         return $hours;
     }
 }

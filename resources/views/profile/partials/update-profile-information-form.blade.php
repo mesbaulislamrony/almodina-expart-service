@@ -18,7 +18,7 @@
         @method('patch')
 
         <div class="flex min-w-0 gap-x-4">
-            <img class="size-14 flex-none rounded-full bg-gray-50" src="{{ $user->image }}" alt="">
+            <img class="size-14 flex-none rounded-full bg-gray-50" src="{{ $user->thumbnail }}" alt="">
             <div class="min-w-0 flex-auto">
                 <div>
                     <x-input-label for="image" :value="__('Profile Picture')" />

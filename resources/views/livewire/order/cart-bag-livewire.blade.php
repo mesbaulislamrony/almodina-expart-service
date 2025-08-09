@@ -2,10 +2,10 @@
 <div class="w-full px-3 py-3 bg-white border border-neutral-300 rounded-lg -mt-12">
     <div class="flex items-center justify-between mb-4">
         <h3 class="text-lg font-semibold">Your Carts</h3>
-        <p>You have {{ $items->count() }} items</p>
+        <p>You have {{ count($items) }} items</p>
     </div>
     <ul role="list" class="divide-y divide-neutral-100">
-        @if($items->count() > 0)
+        @if(count($items) > 0)
             @foreach($items as $item)
             <li class="py-3 px-3 hover:bg-neutral-50 transition-colors duration-200 cursor-pointer">
                 <div class="flex items-center gap-3">
@@ -31,7 +31,7 @@
             </li>
             @endforeach
         @endif
-        @if($items->count() == 0)
+        @if(count($items) == 0)
             <li class="py-3 text-center">
                 Add services to your cart to get started.
             </li>
@@ -47,7 +47,7 @@
             </div>
         </li>
     </ul>
-    <x-link-button href="{{ route('checkout.create') }}" class="w-full mt-4 border border-green-700 text-green-700 hover:bg-green-700 hover:text-white">
-        {{ __('Continue') }}
-    </x-link-button>
+    <x-primary-button-link href="{{ route('checkout.create') }}" class="mt-4 w-full">
+        <span class="">{{ __('Continue') }}</span>
+    </x-primary-button-link>
 </div>

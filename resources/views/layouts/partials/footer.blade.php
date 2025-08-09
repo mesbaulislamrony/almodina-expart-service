@@ -11,9 +11,9 @@
             <div class="col-span-2">
                 <p class="text-white text-lg font-semibold">Join as a provider</p>
                 <p class="text-white">Joining as a provider will boost your range of work. We are always dedicated to maximizing your earnings.</p>
-                <x-link-button href="" class="inline-flex mt-4 border border-white hover:bg-white hover:text-green-700">
+                <x-secondary-button-link href="" class="mt-4">
                     <span class="me-2">{{ __('More Details') }}</span><i class="fa-solid fa-arrow-up-right-from-square">&nbsp;</i>
-                </x-link-button>
+                </x-secondary-button-link>
             </div>
             <div class="flex flex-col space-y-3 text-end">
                 <span class="">Support</span>

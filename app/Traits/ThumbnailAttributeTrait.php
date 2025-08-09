@@ -9,6 +9,7 @@ trait ThumbnailAttributeTrait
         if (empty($this->image)) {
             return asset('assets/thumbnail.png');
         }
+
         return asset($this->image);
     }
 }

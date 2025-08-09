@@ -2,19 +2,20 @@
 
 namespace App\Livewire\Order;
 
-use Livewire\Component;
 use App\Repository\Order\AddToCartRepository;
+use Livewire\Component;
 
 class AddToCartLivewire extends Component
 {
     public $product;
+
     public $qty = 0;
 
     public function mount($product)
     {
         $this->product = $product;
         $this->product->subtotal = 0;
-        if($product->cart) {
+        if ($product->cart) {
             $this->qty = $product->cart->qty;
             $this->product->subtotal = $product->cart->subtotal;
         }

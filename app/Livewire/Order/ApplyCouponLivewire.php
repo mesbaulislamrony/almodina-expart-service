@@ -7,7 +7,9 @@ use Livewire\Component;
 class ApplyCouponLivewire extends Component
 {
     public $subtotal = 0;
+
     public $discount = 0;
+
     public $payable = 0;
 
     public function mount()

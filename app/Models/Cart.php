@@ -22,11 +22,19 @@ class Cart extends Model
         'total' => 'integer',
     ];
 
+    protected static function booted()
+    {
+        static::addGlobalScope('carts', function (\Illuminate\Database\Eloquent\Builder $builder) {
+            $builder->orderBy('carts.id', 'desc');
+        });
+    }
+
     public function getUrlAttribute()
     {
-        if($this->product->variant) {
-            return route('services', $this->product->service->slug) . '?tab=' . $this->product->variant->slug;
+        if ($this->product->variant) {
+            return route('services', $this->product->service->slug).'?tab='.$this->product->variant->slug;
         }
+
         return route('services', $this->product->service->slug);
     }
 

@@ -1,13 +1,15 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookingController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\WelcomeController;
-use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\NotificationControlelr;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReviewControlelr;
 use App\Http\Controllers\SubscribeController;
+use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\WishlistController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', [WelcomeController::class, 'home'])->name('welcome');
 Route::get('/categories/{slug}', [WelcomeController::class, 'categories'])->name('categories');
@@ -15,7 +17,6 @@ Route::get('/services/{slug}', [WelcomeController::class, 'services'])->name('se
 Route::get('/product/{slug}', [WelcomeController::class, 'product'])->name('product');
 Route::post('/current/location', [WelcomeController::class, 'setCurrentLocation'])->name('current.location');
 Route::post('/subscribe', SubscribeController::class)->name('subscribe.store');
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -39,7 +40,13 @@ Route::middleware('auth')->group(function () {
             Route::post('/{id}', [WishlistController::class, 'store'])->name('store');
             Route::delete('/{id}', [WishlistController::class, 'destroy'])->name('destroy');
         });
+        Route::prefix('review')->name('review.')->group(function () {
+            Route::get('/', [ReviewControlelr::class, 'index'])->name('index');
+            Route::post('/{id}', [ReviewControlelr::class, 'store'])->name('store');
+            Route::delete('/{id}', [ReviewControlelr::class, 'destroy'])->name('destroy');
+        });
+        Route::get('/notification', NotificationControlelr::class)->name('notification.index');
     });
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

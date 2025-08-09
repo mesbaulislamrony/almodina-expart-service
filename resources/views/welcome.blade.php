@@ -78,9 +78,9 @@
             <div class="grid grid-cols-2 gap-12">
                 <div class="">
                     <p class="text-white">We believe that priority of caution is mandatory. We provide our services with a priority of quality. Which considers the clients happiness.</p>
-                    <x-link-button href="" class="inline-flex mt-4 border border-white hover:bg-white hover:text-green-700">
+                    <x-secondary-button-link href="" class="mt-4">
                         <span class="me-2">{{ __('More Details') }}</span><i class="fa-solid fa-arrow-up-right-from-square">&nbsp;</i>
-                    </x-link-button>
+                    </x-secondary-button-link>
                 </div>
                 <div class="item-center">
                     <ul class="flex flex-wrap gap-y-3 text-sm font-medium text-center text-gray-500">
@@ -137,9 +137,9 @@
                 <h1 class="text-2xl font-bold mb-6">Our values drive us to the highest</h1>
                 <h2 class="font-semibold mb-6">We provide our services with a priority of quality. which considers the client's happiness.</h2>
                 <p class="">Ah, got it! You're looking for group button titles for a user profile section — something like tabs or categories that organize different parts of a user's profile.</p>
-                <x-link-button href="" class="inline-flex mt-4 border border-green-700 text-green-700 hover:bg-green-700 hover:text-white">
+                <x-primary-button-link href="" class="mt-4">
                     <span class="me-2">{{ __('More Details') }}</span><i class="fa-solid fa-arrow-up-right-from-square">&nbsp;</i>
-                </x-link-button>
+                </x-primary-button-link>
             </div>
         </div>
     </section>

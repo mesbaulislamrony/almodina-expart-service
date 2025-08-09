@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Service extends Model
 {
     use \App\Traits\ThumbnailAttributeTrait;
-    
+
     protected static function booted()
     {
         static::addGlobalScope('service', function (\Illuminate\Database\Eloquent\Builder $builder) {
@@ -17,10 +17,11 @@ class Service extends Model
 
     public function getUrlAttribute()
     {
-        if($this->variants()->count() == 0) {
+        if ($this->variants()->count() == 0) {
             return route('services', $this->slug);
         }
-        return route('services', $this->slug) . '?tab=' . $this->variants()->min('slug');
+
+        return route('services', $this->slug).'?tab='.$this->variants()->min('slug');
     }
 
     public function getPriceAttribute()

@@ -2,15 +2,16 @@
 
 namespace App\View\Components\Checkout;
 
+use App\Services\ScheduleService;
+use Carbon\Carbon;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
-use App\Services\ScheduleService;
-use Carbon\Carbon;
 
 class ScheduleComponent extends Component
 {
     public $service;
+
     /**
      * Create a new component instance.
      */
@@ -27,6 +28,7 @@ class ScheduleComponent extends Component
         $data['weekes'] = $this->service->getAvailableDates();
         $data['hours'] = $this->service->getAvailableHours();
         $data['scheduled_at'] = Carbon::now()->addDay(1)->addMinute(30)->format('l M Y h:i A');
+
         return view('components.checkout.schedule-component', $data);
     }
 }
