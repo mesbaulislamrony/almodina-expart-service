@@ -25,6 +25,6 @@
         </div>
     </div>
     <div class="overflow-hidden col-span-1 flex items-center justify-end">
-        <span class="select-none">{{ $product->subtotal }} Tk</span>
+        <span class="select-none">{{ $product->total }} Tk</span>
     </div>
 </div>

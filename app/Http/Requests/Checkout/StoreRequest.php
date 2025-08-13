@@ -17,15 +17,22 @@ class StoreRequest extends FormRequest
 
     public function prepareForValidation(): void
     {
-        $this->merge([
-            'schedule' => Carbon::parse($this->date.' '.$this->time)->format('Y-m-d h:i A'),
-        ]);
+        if ($this->date && $this->time) {
+            $this->merge([
+                'schedule' => Carbon::parse($this->date . ' ' . $this->time)->format('Y-m-d h:i A'),
+            ]);
+        }
+        if ($this->house && $this->road && $this->address) {
+            $this->merge([
+                'address' => "House: " . $this->house . '; Road: ' . $this->road . '; Address: ' . $this->address
+            ]);
+        }
     }
 
     public function attributes(): array
     {
         return [
-            'schedule' => 'Schedule',
+            'schedule' => 'schedule',
         ];
     }
 
@@ -40,15 +47,10 @@ class StoreRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'mobile_no' => ['required', 'string', 'max:255'],
             'schedule' => ['required', 'date_format:"Y-m-d h:i A"'],
+            'house' => ['required', 'string', 'max:255'],
+            'road' => ['required', 'string', 'max:255'],
             'address' => ['required', 'string', 'max:255'],
             'agreement' => ['required'],
         ];
-    }
-
-    public function withValidator($validator)
-    {
-        $validator->after(function ($validator) {
-            $validator->schedule = Carbon::parse($this->date.' '.$this->time)->format('Y-m-d h:i A');
-        });
     }
 }

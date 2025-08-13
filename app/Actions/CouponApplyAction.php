@@ -6,19 +6,23 @@ use App\Models\Coupon;
 
 class CouponApplyAction
 {
-    public function __invoke($subtotal, $code): float
+    public function execute($subtotal, $code): float
     {
+        $discount = 0;
         $coupon = Coupon::where('code', $code)->first();
-        if ($coupon) {
-            if ($coupon->type == 'percentage') {
-                $discount = ($subtotal * $coupon->amount) / 100;
 
-                return $discount;
-            }
+        if ($coupon->is_fixed_amount) {
+            $discount = $coupon->amount;
+        }
+        $discount = (($subtotal * $coupon->amount) / 100);
 
-            return $coupon->amount;
+        if($discount > $coupon->max) {
+            $discount = $coupon->max;
         }
 
-        return 0;
+        $coupon->customers()->detach(auth()->user()->id);
+        $coupon->customers()->attach(auth()->user()->id);
+
+        return $discount;
     }
 }

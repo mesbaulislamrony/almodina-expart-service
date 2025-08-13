@@ -40,7 +40,7 @@
                             @endif
                         </p>
                         <p class="truncate text-xs">{{ $task->product->service->name }}</p>
-                        <a href="{{ route('review.create', $task->product->service->slug) }}" class="text-xs/5 text-gray-500">Write an review</a>
+                        <a href="" class="text-xs/5 text-gray-500">Write an review</a>
                     </div>
                 </div>
                 <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">

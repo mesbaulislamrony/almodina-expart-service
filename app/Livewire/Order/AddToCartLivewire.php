@@ -28,18 +28,21 @@ class AddToCartLivewire extends Component
         }
         $this->qty++;
         $this->product->qty = $this->qty;
-        $this->product->total = $this->product->price * $this->qty;
+        $this->product->total = ($this->product->price * $this->qty);
         $action($this->product);
         $this->dispatch('update-cart-bag');
     }
 
     public function decrement(AddToCartAction $action)
     {
+        if (! auth()->check()) {
+            return redirect()->route('login');
+        }
         if ($this->qty > 0) {
             $this->qty--;
         }
         $this->product->qty = $this->qty;
-        $this->product->total = $this->product->price * $this->qty;
+        $this->product->total = ($this->product->price * $this->qty);
         $action($this->product);
         $this->dispatch('update-cart-bag');
     }

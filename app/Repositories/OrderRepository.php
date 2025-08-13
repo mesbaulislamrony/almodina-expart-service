@@ -2,21 +2,33 @@
 
 namespace App\Repositories;
 
+use Carbon\Carbon;
 use App\Models\Cart;
 use App\Models\Project;
-use Carbon\Carbon;
 use Illuminate\Support\Str;
+use App\Actions\CouponApplyAction;
 
 class OrderRepository
 {
+    protected $action;
+    public function __construct(CouponApplyAction $action)
+    {
+        $this->action = $action;
+    }
+
     public function order($request)
     {
+        $coupon = auth()->user()->coupons()->where('used', 0)->first();
         $carts = Cart::where('email', auth()->user()->email)->get();
         $array['customer_id'] = auth()->user()->id;
         $array['project_no'] = Str::upper(Str::random(8));
-        $array['subtotal'] = $carts->sum('subtotal');
-        $array['discount'] = $carts->sum('discount');
-        $array['payable'] = $carts->sum('total');
+        $array['subtotal'] = $carts->sum('total');
+        $array['discount'] = 0;
+        if ($coupon) {
+            $array['discount'] = $this->action->execute($array['subtotal'], $coupon->code);
+            $coupon->pivot->update(['used' => 1]);
+        }
+        $array['payable'] = ($array['subtotal'] - $array['discount']);
         $array['address'] = $request->address;
         $array['note'] = $request->note;
         $array['scheduled_at'] = Carbon::parse($request->schedule)->toDateTimeString();
@@ -25,7 +37,6 @@ class OrderRepository
             $cart->project_id = $project->id;
             $cart->created_at = now();
             $cart->updated_at = now();
-
             return $cart->except('id', 'email');
         })->toArray();
         $project->tasks()->insert($tasks);

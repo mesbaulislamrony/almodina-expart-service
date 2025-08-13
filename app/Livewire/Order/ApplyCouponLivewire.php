@@ -2,9 +2,10 @@
 
 namespace App\Livewire\Order;
 
-use App\Actions\CouponApplyAction;
-use Livewire\Attributes\Validate;
 use Livewire\Component;
+use Livewire\Attributes\Validate;
+use App\Actions\CouponApplyAction;
+use App\Http\Requests\Coupon\StoreRequest;
 
 class ApplyCouponLivewire extends Component
 {
@@ -14,7 +15,6 @@ class ApplyCouponLivewire extends Component
 
     public $payable = 0;
 
-    #[Validate('required')]
     public $code;
 
     public function mount()
@@ -31,8 +31,14 @@ class ApplyCouponLivewire extends Component
 
     public function apply(CouponApplyAction $action)
     {
-        $this->discount = $action($this->subtotal, $this->code);
+        $this->validate();
+        $this->discount = $action->execute($this->subtotal, $this->code);
         $this->updateTotals();
+    }
+
+    protected function rules()
+    {
+        return (new StoreRequest())->rules();
     }
 
     public function render()

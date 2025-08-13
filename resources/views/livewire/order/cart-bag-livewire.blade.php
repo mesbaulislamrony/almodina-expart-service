@@ -2,9 +2,9 @@
 <div class="w-full px-3 py-3 bg-white border border-neutral-300 rounded-lg -mt-12">
     <div class="flex items-center justify-between mb-4">
         <h3 class="text-lg font-semibold">Your Carts</h3>
-        <p>You have {{ ($items) ? $items->count() : 0 }} items</p>
+        <p>You have {{ count($items) }} items</p>
     </div>
-    @if($items)
+    @if(count($items) > 0)
     <ul role="list" class="divide-y divide-neutral-100">
         @foreach($items as $item)
         <li class="py-3 px-3 hover:bg-neutral-50 transition-colors duration-200 cursor-pointer">
@@ -45,10 +45,11 @@
         <span class="">{{ __('Continue') }}</span>
     </x-primary-button-link>
     @endif
-    @if(!$items)
-        <div class="py-12 text-center space-y-4">
-            <i class="fa-solid fa-warning text-4xl text-neutral-500"></i>
-            <p class="text-lg font-semibold">Your Cart is Empty</p>
-        </div>
+
+    @if(count($items) == 0)
+    <div class="py-12 text-center space-y-4">
+        <i class="fa-solid fa-warning text-4xl text-neutral-500"></i>
+        <p class="text-lg font-semibold">Your Cart is Empty</p>
+    </div>
     @endif
 </div>

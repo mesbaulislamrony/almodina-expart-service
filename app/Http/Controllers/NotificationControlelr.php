@@ -11,6 +11,7 @@ class NotificationControlelr extends Controller
      */
     public function __invoke(Request $request)
     {
-        return view('notification.index');
+        $data['notifications'] = auth()->user()->notifications()->get();
+        return view('notification.index', $data);
     }
 }

@@ -20,6 +20,7 @@ class CartBagLivewire extends Component
     #[On('update-cart-bag')]
     public function updateCartBag()
     {
+        $this->items = [];
         if (auth()->check()) {
             $this->items = Cart::where('email', auth()->user()->email)->get();
             $this->total = $this->items->sum('total');

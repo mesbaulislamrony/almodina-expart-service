@@ -1,52 +1,34 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Profile') }}
+            {{ __('Reviews') }}
         </h2>
     </x-slot>
 
-    @if($reviews->count() > 0)
-    <ul role="list" class="divide-y divide-gray-100">
-        @foreach($reviews as $review)
-        <li class="flex justify-between gap-x-6 py-5">
-            <a href="{{ $review->service->url }}" class="flex min-w-0 gap-x-4">
-                <img class="size-12 flex-none rounded-full bg-gray-50" src="{{ $review->service->thumbnail }}" alt="">
-                <div class="min-w-0 flex-auto">
-                    <p class="text-sm/6 font-semibold text-gray-900">{{ $review->service->name }}</p>
-                    <p class="mt-1 truncate text-xs/5 text-gray-500">{{ $review->content }}</p>
+    @if(count($reviews) > 0)
+    <div class="p-3 bg-white rounded-lg">
+        <div class="max-w-xl">
+            @foreach($reviews as $review)
+            <div class="py-4 bg-white hover:bg-gray-50 rounded-lg">
+                <div class="flex justify-between gap-x-6 px-4">
+                    <div class="flex min-w-0 gap-x-4 mb-2">
+                        <div class="min-w-0 flex-auto">
+                            <p class="text-sm/6 font-semibold text-gray-900">{{ $review->service->name }}</p>
+                            <time datetime="{{ $review->created_at }}" class="text-gray-400">{{ $review->created_at }}</time>
+                        </div>
+                    </div>
+                    <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
+                        <div x-data="{ rating: {{ $review->rating }} }" class="flex items-center mb-1 space-x-1 text-lg">
+                            <template x-for="star in 5" :key="star">
+                                <span :class="{'text-yellow-500': star <= Math.floor(rating), 'text-gray-300': star > rating, 'text-yellow-300': star > Math.floor(rating) && star <= rating }">★</span>
+                            </template>
+                        </div>
+                    </div>
                 </div>
-            </a>
-            <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-                <x-danger-button x-data="" x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion-{{$review->id}}')">
-                    <i class="fa-solid fa-xmark"></i>
-                </x-danger-button>
+                <p class="px-4">{{ $review->comment }}</p>
             </div>
-        </li>
-
-        <x-modal name="confirm-user-deletion-{{$review->id}}" :show="$errors->userDeletion->isNotEmpty()" focusable>
-            <form method="post" action="{{ route('wishlist.destroy', $review->id) }}" class="p-6">
-                @csrf
-                @method('delete')
-                <h2 class="text-lg font-medium text-gray-900">
-                    {{ __('Are you sure you want to delete your it?') }}
-                </h2>
-
-                <p class="mt-1 text-sm text-gray-600">
-                    {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.') }}
-                </p>
-
-                <div class="mt-6 flex justify-end">
-                    <x-secondary-button x-on:click="$dispatch('close')">
-                        {{ __('Cancel') }}
-                    </x-secondary-button>
-
-                    <x-danger-button class="ms-3">
-                        {{ __('Delete Account') }}
-                    </x-danger-button>
-                </div>
-            </form>
-        </x-modal>
-        @endforeach
-    </ul>
+            @endforeach
+        </div>
+    </div>
     @endif
 </x-app-layout>

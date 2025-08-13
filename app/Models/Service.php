@@ -24,6 +24,34 @@ class Service extends Model
         return route('services', $this->slug).'?tab='.$this->variants()->min('slug');
     }
 
+    /**
+     * Get the average rating for the service.
+     *
+     * @return float|int
+     */
+    public function getRatingAttribute()
+    {
+        if($this->reviews()->count() == 0) {
+            return 0;
+        }
+
+        return round($this->reviews()->avg('rating'), 1);
+    }
+
+    /**
+     * Get the total number of reviews for the service.
+     *
+     * @return int
+     */
+    public function getTotalReviewsAttribute()
+    {
+        if($this->reviews()->count() == 0) {
+            return 0;
+        }
+
+        return $this->reviews()->count();
+    }
+
     public function getPriceAttribute()
     {
         return $this->products()->min('price');

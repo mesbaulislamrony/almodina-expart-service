@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\Review;
 use App\Models\Service;
+use App\Models\Task;
 use Illuminate\Http\Request;
 
 class ReviewControlelr extends Controller
@@ -11,7 +13,7 @@ class ReviewControlelr extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $data['reviews'] = Review::with('service')->where('customer_id', auth()->user()->id)->get();
 
@@ -19,28 +21,19 @@ class ReviewControlelr extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create($slug)
-    {
-        $data['service'] = Service::where('slug', $slug)->first();
-
-        return view('review.create', $data);
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, $service)
     {
         $validate = $request->validate([
-            'content' => 'required',
+            'comment' => 'required',
+            'rating' => 'required',
         ]);
-        $service = Service::where('slug', $request->slug)->first();
-        $validate['service_id'] = $service->id;
+        
+        $validate['service_id'] = Service::where('slug', $service)->value('id');
         auth()->user()->reviews()->create($validate);
 
-        return redirect()->route('review.index')->with('success', __('Review created successfully.'));
+        return redirect()->back()->with('success', __('Review created successfully.'));
     }
 
     /**
