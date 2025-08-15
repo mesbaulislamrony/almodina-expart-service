@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
 use App\Models\Review;
 use App\Models\Service;
-use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReviewControlelr extends Controller
 {
@@ -15,7 +14,7 @@ class ReviewControlelr extends Controller
      */
     public function index(Request $request)
     {
-        $data['reviews'] = Review::with('service')->where('customer_id', auth()->user()->id)->get();
+        $data['reviews'] = Review::with('service')->where('customer_id', Auth::user()->id)->get();
 
         return view('review.index', $data);
     }
@@ -29,9 +28,9 @@ class ReviewControlelr extends Controller
             'comment' => 'required',
             'rating' => 'required',
         ]);
-        
+
         $validate['service_id'] = Service::where('slug', $service)->value('id');
-        auth()->user()->reviews()->create($validate);
+        Auth::user()->reviews()->create($validate);
 
         return redirect()->back()->with('success', __('Review created successfully.'));
     }

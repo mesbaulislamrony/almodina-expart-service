@@ -10,5 +10,5 @@
             </p>
         </div>
     </div>
-    <span class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 text-xs rounded-lg">10% off Tk. 299</span>
+    <span class="absolute top-2 right-2 bg-green-700 text-white px-2 py-1 text-xs rounded-lg hidden">10% off Tk. 299</span>
 </a>

@@ -8,6 +8,12 @@ class Service extends Model
 {
     use \App\Traits\ThumbnailAttributeTrait;
 
+    protected $fillable = [
+        'name',
+        'slug',
+        'description',
+    ];
+
     protected static function booted()
     {
         static::addGlobalScope('service', function (\Illuminate\Database\Eloquent\Builder $builder) {
@@ -31,7 +37,7 @@ class Service extends Model
      */
     public function getRatingAttribute()
     {
-        if($this->reviews()->count() == 0) {
+        if ($this->reviews()->count() == 0) {
             return 0;
         }
 
@@ -45,7 +51,7 @@ class Service extends Model
      */
     public function getTotalReviewsAttribute()
     {
-        if($this->reviews()->count() == 0) {
+        if ($this->reviews()->count() == 0) {
             return 0;
         }
 
@@ -62,6 +68,12 @@ class Service extends Model
         return $this->belongsTo(Unit::class);
     }
 
+    /**
+     * Get the category that the service belongs to.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -77,6 +89,11 @@ class Service extends Model
         return $this->hasMany(Product::class);
     }
 
+    /**
+     * Get the reviews for the service.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function reviews()
     {
         return $this->hasMany(Review::class);

@@ -19,12 +19,12 @@ class StoreRequest extends FormRequest
     {
         if ($this->date && $this->time) {
             $this->merge([
-                'schedule' => Carbon::parse($this->date . ' ' . $this->time)->format('Y-m-d h:i A'),
+                'schedule' => Carbon::parse($this->date.' '.$this->time)->format('Y-m-d h:i A'),
             ]);
         }
         if ($this->house && $this->road && $this->address) {
             $this->merge([
-                'address' => "House: " . $this->house . '; Road: ' . $this->road . '; Address: ' . $this->address
+                'address' => 'House: '.$this->house.'; Road: '.$this->road.'; Address: '.$this->address,
             ]);
         }
     }

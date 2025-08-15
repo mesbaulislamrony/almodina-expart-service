@@ -18,6 +18,11 @@ class Review extends Model
         return $this->belongsTo(Customer::class);
     }
 
+    /**
+     * The service that the review belongs to.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function service()
     {
         return $this->belongsTo(Service::class);

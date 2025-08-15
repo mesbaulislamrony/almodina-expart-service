@@ -1,15 +1,15 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CartController;
-use App\Http\Controllers\ReviewControlelr;
 use App\Http\Controllers\BookingController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\WishlistController;
-use App\Http\Controllers\SubscribeController;
 use App\Http\Controllers\NotificationControlelr;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReviewControlelr;
+use App\Http\Controllers\SubscribeController;
+use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\WishlistController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', [WelcomeController::class, 'home'])->name('welcome');
 Route::get('/categories/{slug}', \App\Http\Controllers\CategoryController::class)->name('categories');

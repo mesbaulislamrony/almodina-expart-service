@@ -5,8 +5,10 @@
             <h1 class="text-2xl font-semibold">Your Personal Service Solution</h1>
             <p class="text-white">One-stop solution for your services. Order any service, anytime, anywhere.</p>
         </div>
+    </section>
+    <section class="max-w-5xl mx-auto px-5">
         @if($categories->count() > 0)
-        <div class="max-w-3xl mx-auto -mt-8">
+        <div class="max-w-3xl mx-auto -mt-12">
             <div class="grid grid-cols-6 gap-3">
                 @foreach($categories as $category)
                 <a href="{{ route('categories', $category->slug) }}" class="bg-white border border-neutral-100 transition transform duration-700 hover:shadow-xl rounded-xl overflow-hipen relative p-1">

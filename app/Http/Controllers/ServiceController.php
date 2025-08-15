@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ServiceController extends Controller
 {
@@ -18,12 +19,13 @@ class ServiceController extends Controller
                     return $query->where('slug', $request->tab);
                 })->with('service')->when(auth()->check(), function ($query) {
                     return $query->with('cart', function ($query) {
-                        return $query->where('email', auth()->user()->email);
+                        return $query->where('email', Auth::user()->email);
                     });
                 });
             });
         }, 'variants', 'reviews', 'reviews.customer'])->where('slug', $slug)->first();
         $data['tab'] = $request->tab;
+
         return view('service.index', $data);
     }
 }

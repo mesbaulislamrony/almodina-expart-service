@@ -3,6 +3,7 @@
 namespace App\Livewire\Order;
 
 use App\Models\Cart;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -22,7 +23,7 @@ class CartBagLivewire extends Component
     {
         $this->items = [];
         if (auth()->check()) {
-            $this->items = Cart::where('email', auth()->user()->email)->get();
+            $this->items = Cart::where('email', Auth::user()->email)->get();
             $this->total = $this->items->sum('total');
         }
     }

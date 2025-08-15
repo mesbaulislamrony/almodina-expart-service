@@ -10,7 +10,7 @@
                 <ul class="flex flex-wraptext-center mt-6">
                     @foreach($service->variants as $variant)
                     <li class="me-2">
-                        <a href="{{ route('services', $service->slug) }}?tab={{ $variant->slug }}" class="rounded-full px-3.5 py-2 font-semibold inline-block border border-green-700 text-green-700 {{ ($variant->slug == $tab) ? 'bg-green-700 text-white' : '' }}" aria-current="page">{{ $variant->name }}</a>
+                        <x-primary-button-link href="{{ route('services', $service->slug) }}?tab={{ $variant->slug }}" class="{{ ($variant->slug == $tab) ? 'bg-green-700 text-white' : '' }}">{{ $variant->name }}</x-primary-button-link>
                     </li>
                     @endforeach
                 </ul>

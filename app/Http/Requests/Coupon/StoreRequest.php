@@ -4,6 +4,7 @@ namespace App\Http\Requests\Coupon;
 
 use Carbon\Carbon;
 use App\Models\Coupon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest
@@ -34,22 +35,25 @@ class StoreRequest extends FormRequest
     {
         $coupon = Coupon::where('code', $value)->first();
 
-        if (!$coupon) {
+        if (! $coupon) {
             return;
         }
-        
-        if (!Carbon::now()->between($coupon->valid_from, $coupon->valid_until)) {
+
+        if (! Carbon::now()->between($coupon->valid_from, $coupon->valid_until)) {
             $fail('Coupon has expired.');
+
             return;
         }
 
         if ($coupon->limit == 0) {
             $fail('Coupon usage limit exceeded.');
+
             return;
         }
 
-        if ($coupon->customers()->where(['customer_id' => auth()->user()->id, 'used' => 1])->exists()) {
+        if ($coupon->customers()->where(['customer_id' => Auth::user()->id, 'used' => 1])->exists()) {
             $fail('Coupon already used.');
+
             return;
         }
     }

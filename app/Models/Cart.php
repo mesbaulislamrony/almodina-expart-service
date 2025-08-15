@@ -38,6 +38,11 @@ class Cart extends Model
         return route('services', $this->product->service->slug);
     }
 
+    /**
+     * The product that this cart belongs to.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function product()
     {
         return $this->belongsTo(Product::class);

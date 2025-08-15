@@ -3,8 +3,8 @@
 namespace App\Livewire\Order;
 
 use Livewire\Component;
-use Livewire\Attributes\Validate;
 use App\Actions\CouponApplyAction;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Coupon\StoreRequest;
 
 class ApplyCouponLivewire extends Component
@@ -24,7 +24,7 @@ class ApplyCouponLivewire extends Component
 
     public function updateTotals()
     {
-        $items = auth()->user()->carts()->get();
+        $items = Auth::user()->carts()->get();
         $this->subtotal = $items->sum('total');
         $this->payable = ($items->sum('total') - $this->discount);
     }
@@ -38,7 +38,7 @@ class ApplyCouponLivewire extends Component
 
     protected function rules()
     {
-        return (new StoreRequest())->rules();
+        return (new StoreRequest)->rules();
     }
 
     public function render()

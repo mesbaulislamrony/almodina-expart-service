@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class WishlistController extends Controller
 {
     public function index()
     {
-        $data['services'] = auth()->user()->services()->get();
+        $data['services'] = Auth::user()->services()->get();
 
         return view('wishlist.index', $data);
     }
@@ -16,8 +17,8 @@ class WishlistController extends Controller
     public function store(Request $request, $slug)
     {
         $service = \App\Models\Service::where('slug', $slug)->first();
-        auth()->user()->services()->detach($service);
-        auth()->user()->services()->attach($service);
+        Auth::user()->services()->detach($service);
+        Auth::user()->services()->attach($service);
 
         return redirect()->back();
     }
@@ -25,7 +26,7 @@ class WishlistController extends Controller
     public function destroy(Request $request, $id)
     {
         $service = \App\Models\Service::where('id', $id)->first();
-        auth()->user()->services()->detach($service);
+        Auth::user()->services()->detach($service);
 
         return back();
     }
